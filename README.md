@@ -1,6 +1,7 @@
 # RoundRobinScheduling
 
 ```
+bower install
 python -m SimpleHTTPServer 8000
 ```
 

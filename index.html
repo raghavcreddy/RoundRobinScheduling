@@ -14,47 +14,56 @@
 
 <body ng-app="FixtureApp" ng-cloak>
 
-    <div ng-controller="MainCtrl" class="container" layout="column" ng-cloak>
-
-        <md-content class="md-padding" layout="column">
-
-            <h2 class="md-title">Add a person</h2>
-            <md-chips ng-model="names"></md-chips>
-            <br>
-
-            <div layout="row" layout-xs="column">
-                <div flex>
-                    Total persons: {{names.length}}
-                    <br>Time for each round in minutes:
-                    <br>
-                    <input ng-model="roundtime" ng-init="roundtime=10" type="number">
-                </div>
-                <div flex>
-                    <br>Total rounds: {{combos.length}}
-                    <br>Total time: {{ (roundtime * combos.length) }} minutes
-                </div>
-            </div>
-
-            <br>
-            <div ng-repeat="rounds in combos">
-                <strong>Round {{$index+1}}</strong>
-                <div ng-repeat="pair in rounds">
-                    <span>{{ pair[0] + ' -' }}</span>
-                    <span>{{ pair[1] || '(Timekeeper)' }}</span>
-                </div>
-                <span ng-if="!$last"><hr></span>
-            </div>
-
-        </md-content>
-
+<div ng-controller="MainCtrl" class="container" layout="column" ng-cloak>
+    <div ng-if="roundtime">
+        <h2>Timer</h2>
+        <timer interval="timeInterval">{{days}} days, {{hours}} hours, {{minutes}} minutes, {{seconds}} seconds.</timer>
+        <button ng-click="startTimer()" ng-disabled="timerRunning">Start Timer</button>
+        <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button>
+        <button ng-click="restartTimer()">Restart Timer</button>
     </div>
+    <md-content class="md-padding" layout="column">
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
-    <script src="app.js"></script>
+        <h2 class="md-title">Add a person</h2>
+        <md-chips ng-model="names"></md-chips>
+        <br>
+
+        <div layout="row" layout-xs="column">
+            <div flex>
+                Total persons: {{names.length}}
+                <br>Time for each round in minutes:
+                <br>
+                <input ng-model="roundtime" ng-init="roundtime=10" type="number">
+            </div>
+            <div flex>
+                <br>Total rounds: {{combos.length}}
+                <br>Total time: {{ (roundtime * combos.length) }} minutes
+            </div>
+        </div>
+
+        <br>
+        <div ng-repeat="rounds in combos">
+            <strong>Round {{$index+1}}</strong>
+            <div ng-repeat="pair in rounds">
+                <span>{{ pair[0] + ' -' }}</span>
+                <span>{{ pair[1] || '(Timekeeper)' }}</span>
+            </div>
+            <span ng-if="!$last"><hr></span>
+        </div>
+    </md-content>
+
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+<script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
+<script src="humanize-duration.js"></script>
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+<script src="app.js"></script>
 </body>
 
 </html>
